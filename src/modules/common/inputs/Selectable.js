@@ -6,7 +6,7 @@ import {
 const mapToChildren = (options) => options.map((x, i) => <option key={i} {...x}>{x.label}</option>)
 
 const renderField = (props) => {
-    const { input, label, type, options, meta: { touched, error } } = props;
+    const { input, label, options, meta: { touched, error } } = props;
     return (
         <div className={`form-group ${touched && ((error ? 'has-error' : 'has-success'))}`}>
             <label className="control-label" htmlFor={input.name}>{label}</label>
