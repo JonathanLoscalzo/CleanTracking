@@ -30,7 +30,7 @@ class OrderUpdatePage extends React.Component {
 
 const OrderUpdateForm = reduxForm({
     form: 'order/update',  // a unique identifier for this form
-    validate: validator(schema, ["products"]),
+    validate: validator(schema, ["items"]),
     enableReinitialize: true
 })(OrderForm)
 

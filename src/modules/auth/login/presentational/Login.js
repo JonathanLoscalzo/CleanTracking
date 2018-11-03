@@ -5,7 +5,8 @@ import { FormGroup } from 'reactstrap';
 import Validator from '../../../../helpers/YupValidator'
 import schema from '../../schema'
 import RenderField from '../../../common/inputs/RenderField';
-import styles from './Login.css'
+import './Login.css'
+import image from './avatar_2x.png'
 
 class CreateForm extends React.Component {
     errorMessage() {
@@ -26,14 +27,14 @@ class CreateForm extends React.Component {
                     <FormGroup>
                         <Field
                             name="username"
-                            placeholder="Nombre de usuario"
+                            label="Nombre de usuario"
                             component={RenderField}
                             type="text" />
                     </FormGroup>
                     <FormGroup>
                         <Field
                             name="password"
-                            placeholder="Contraseña"
+                            label="Contraseña"
                             component={RenderField}
                             type="password" />
                     </FormGroup>
@@ -47,9 +48,7 @@ class CreateForm extends React.Component {
 const Create = (props) => (
     <div className="container">
         <div className="card card-container">
-            <img id="profile-img"
-                className="profile-img-card"
-                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <img alt="login" id="profile-img" className="profile-img-card" src={image} />
             <p id="profile-name" className="profile-name-card"></p>
             <CreateForm {...props} />
         </div>

@@ -41,7 +41,7 @@ export default props => {
             <Body >
                 <form onSubmit={handleSubmit}>
                     <FieldArray
-                        name="products"
+                        name="items"
                         component={renderMembers} />
                     <FormToolbar {...props} />
                 </form>
@@ -97,14 +97,14 @@ const InputRow = ({ member, index, fields }) => (
     <div className="form-row" key={index}>
         <div className="col-8">
             <Field
-                name={`${member}.name`}
+                name={`${member}.product`}
                 type="select"
                 component={selectable}
                 label={`Producto ${index + 1}`} options={products} />
         </div>
         <div className="col-3">
             <Field
-                name={`${member}.count`}
+                name={`${member}.quantity`}
                 type="text"
                 component={renderField}
                 label={`Cantidad`} />

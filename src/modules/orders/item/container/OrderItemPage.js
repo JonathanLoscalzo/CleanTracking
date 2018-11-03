@@ -22,10 +22,10 @@ class OrderItemPage extends React.Component {
 }
 
 const mapStateToProps = ({ order }) => ({
-    order: order.remove.order,
-    loading: order.remove.loading,
-    error: order.remove.error,
-    isOpen: order.remove.isOpen
+    order: order.item.order,
+    loading: order.item.loading,
+    error: order.item.error,
+    isOpen: order.item.isOpen
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({ load, goBack }, dispatch)

@@ -1,5 +1,7 @@
 import axios from 'axios';
-const url = "http://localhost:54356/"
+import config from '../../../properties/config'
+
+const url = config.BACKEND_URL;
 
 const api = axios.create({
     baseURL: url,

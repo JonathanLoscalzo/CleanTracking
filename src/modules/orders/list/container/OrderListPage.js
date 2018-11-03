@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -8,6 +8,8 @@ import OrderList from '../presentational/OrderList'
 import { load, goToCreate, goToEdit } from '../index';
 import OrderRemovePage from '../../remove/container/OrderRemovePage';
 import OrderItemPage from '../../item/container/OrderItemPage';
+import OrderNewPage from '../../create/container/OrderCreatePage';
+import OrderUpdatePage from '../../update/container/OrderUpdatePage';
 
 class OrderListPage extends React.Component {
 
@@ -18,11 +20,14 @@ class OrderListPage extends React.Component {
     render() {
         return (
             <Spinner loading={this.props.loading}>
-                <OrderList {...this.props} />
+                <Switch>
+                    <Route path={`${this.props.match.url}/new`} component={OrderNewPage} />
+                    <Route path={`${this.props.match.url}/edit/:id`} component={OrderUpdatePage} />
+                    <OrderList {...this.props} />
+                </Switch>
                 <Route path={`${this.props.match.url}/remove/:id`} component={OrderRemovePage} />
                 <Route path={`${this.props.match.url}/view/:id`} component={OrderItemPage} />
             </Spinner>
-
         )
     }
 }

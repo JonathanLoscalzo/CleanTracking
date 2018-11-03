@@ -1,5 +1,7 @@
 import { push } from 'connected-react-router'
 import * as _ from 'lodash'
+import orderapi from '../../common/api/orderApi';
+
 import { RESPONSE_CREATE_ORDERS } from '../create'
 import { RESPONSE_UPDATE_ORDERS } from '../update'
 import { RESPONSE_REMOVE_ORDERS } from '../remove'
@@ -9,7 +11,7 @@ export const ERROR_ORDERS = "ORDERS/LIST/ERROR_ORDERS"
 
 let initialState = {
     orders: [],
-    loading: false,
+    loading: true,
     error: null
 }
 
@@ -30,8 +32,7 @@ export default function reducer(state = initialState, action = {}) {
         case REQUEST_ORDERS:
             return { ...state, loading: true }
         case RESPONSE_ORDERS:
-            return { ...state, loading: false };
-        //return { ...state, loading: false, orders: action.payload }
+            return { ...state, loading: false, orders: action.payload };
         case ERROR_ORDERS:
             return { ...state, loading: false, orders: [], error: action.error }
 
@@ -42,9 +43,13 @@ export default function reducer(state = initialState, action = {}) {
 
 export const load = () => (dispatch) => {
     dispatch({ type: REQUEST_ORDERS })
-
-    // llamada a la api
-    dispatch({ type: RESPONSE_ORDERS, orders: [] })
+    orderapi.Orders()
+        .then((response) => {
+            dispatch({ type: RESPONSE_ORDERS, payload: response.data })
+        })
+        .catch((error) => {
+            dispatch({ type: ERROR_ORDERS, error: "error" })
+        })
 }
 
 export const goToCreate = () => (dispatch) => {

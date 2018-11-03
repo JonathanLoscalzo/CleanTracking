@@ -11,13 +11,13 @@ const renderState = props => {
         case States.ENTREGADO:
             return <span className="badge badge-success" >{States.ENTREGADO}</span>
         default:
-            return <span></span>
+            return <span> SIN ESTADO </span>
     }
 }
 
 const renderToolbar = ({ original, ...props }) => {
     let editButton;
-    if (original.state === States.NUEVO) {
+    // if (original.state === States.NUEVO) {
         editButton = (
             <Link to={`/order/edit/${props.value}`}>
                 <button >
@@ -25,7 +25,7 @@ const renderToolbar = ({ original, ...props }) => {
                 </button>
             </Link>
         )
-    }
+    // }
 
     return <span>
         <Link to={`/order/view/${props.value}`}>
@@ -45,7 +45,7 @@ const renderToolbar = ({ original, ...props }) => {
 const columns = [
     {
         Header: 'Fecha',
-        accessor: 'date',
+        accessor: 'orderPlaced',
         Cell: props => moment(props.value).format("DD/MM/YYYY"),
         sortMethod: (a, b) => {
             return moment(a) < moment(b) ? 1 : -1

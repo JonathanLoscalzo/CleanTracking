@@ -12,7 +12,7 @@ export default (props) => {
                         <dl className="row">
                             <div className="col">
                                 <dt>Fecha</dt>
-                                <dl> {moment(props.order.date).format("DD/MM/YYYY")}</dl>
+                                <dl> {moment(props.order.orderPlaced).format("DD/MM/YYYY")}</dl>
                             </div>
                             <div className="col">
                                 <dt>Estado</dt>
@@ -20,9 +20,9 @@ export default (props) => {
                             </div>
                         </dl>
                         <ul className="list-group">
-                            {props.order.products.map((x, i) => (
+                            {props.order.items.map((x, i) => (
                                 <li key={i} className="list-group-item">
-                                Producto: {x.name} - Cantidad: {x.count}</li>))}
+                                Producto: {x.product} - Cantidad: {x.quantity}</li>))}
                         </ul>
                     </Fragment>)}
             </div>

@@ -56,7 +56,7 @@ export const update = (order) => (dispatch) => {
     dispatch({ type: REQUEST_UPDATE_ORDER })
 
     // TODO: llamada a la api para modificar
-    dispatch({ type: RESPONSE_UPDATE_ORDERS, payload: { ...order, date: new Date() } })
+    dispatch({ type: RESPONSE_UPDATE_ORDERS, payload: { ...order } })
     toast.success("Pedido modificado")
 
     //TODO: ver caso de error

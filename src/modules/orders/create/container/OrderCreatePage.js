@@ -7,6 +7,7 @@ import OrderForm from '../../presentational/OrderForm'
 import { load, create, goBack } from '../index';
 import validator from '../../../../helpers/YupValidator'
 import schema from '../../presentational/OrderValidation';
+import Spinner from '../../../common/loading/spinner'
 
 class OrderCreatePage extends React.Component {
 
@@ -16,19 +17,21 @@ class OrderCreatePage extends React.Component {
 
     render() {
         return (
-            <OrderCreateForm
-                {...this.props}
-                title="Nuevo Pedido"
-                initialValues={this.props.order}
-                onSubmit={(values) => { this.props.create(values); }}
-            />
+            <Spinner loading={this.props.loading}>
+                <OrderCreateForm
+                    {...this.props}
+                    title="Nuevo Pedido"
+                    initialValues={this.props.order}
+                    onSubmit={(values) => { this.props.create(values); }}
+                />
+            </Spinner>
         )
     }
 }
 
 const OrderCreateForm = reduxForm({
     form: 'order/create',  // a unique identifier for this form
-    validate: validator(schema, ["products"]),
+    validate: validator(schema, ["items"]),
 })(OrderForm)
 
 const mapStateToProps = ({ order }) => ({
