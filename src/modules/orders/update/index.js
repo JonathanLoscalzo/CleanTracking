@@ -1,6 +1,8 @@
 import { replace } from 'connected-react-router'
 import { toast } from 'react-toastify'
 
+import orderapi from '../../common/api/orderApi';
+
 export const REQUEST_UPDATE_ORDER = "ORDERS/UPDATE/REQUEST_ORDERS"
 export const RESPONSE_UPDATE_ORDERS = "ORDERS/UPDATE/RESPONSE_ORDERS"
 export const ERROR_UPDATE_ORDERS = "ORDERS/UPDATE/ERROR_ORDERS"
@@ -55,12 +57,17 @@ export const load = (id) => (dispatch, state) => {
 export const update = (order) => (dispatch) => {
     dispatch({ type: REQUEST_UPDATE_ORDER })
 
-    // TODO: llamada a la api para modificar
-    dispatch({ type: RESPONSE_UPDATE_ORDERS, payload: { ...order } })
-    toast.success("Pedido modificado")
+    let placeOrder = { ...order }
 
-    //TODO: ver caso de error
-    dispatch(replace('/order'));
+    orderapi.EditPlaceOrder(placeOrder)
+        .then((response) => {
+            dispatch({ type: RESPONSE_UPDATE_ORDERS, payload: response.data })
+            dispatch(replace('/order'));
+            toast.success("Pedido modificado")
+        })
+        .catch(() => {
+            toast.error("Error al modificar pedido")
+        })
 }
 
 export const goBack = () => dispatch => {

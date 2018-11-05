@@ -1,6 +1,8 @@
 import { replace } from 'connected-react-router'
 import { toast } from 'react-toastify';
 
+import orderapi from '../../common/api/orderApi';
+
 export const REQUEST_REMOVE_ORDER = "ORDERS/REMOVE/REQUEST_ORDERS"
 export const RESPONSE_REMOVE_ORDERS = "ORDERS/REMOVE/RESPONSE_ORDERS"
 export const ERROR_REMOVE_ORDERS = "ORDERS/REMOVE/ERROR_ORDERS"
@@ -58,10 +60,15 @@ export const remove = () => (dispatch, state) => {
 
     // TODO: llamada a api para remover, y luego dispatch
     let order = state().order.remove.order;
-    dispatch({ type: RESPONSE_REMOVE_ORDERS, payload: order })
-    toast.success("Pedido eliminado")
+    orderapi.Remove(order.id)
+        .then(response => {
+            toast.success("Pedido eliminado")
+            dispatch(replace('/order'));
+            dispatch({ type: RESPONSE_REMOVE_ORDERS, payload: order })
+        }).catch(() => {
+            toast.error("Error al eliminar pedido")
+        })
 
-    dispatch(replace('/order'));
     // TODO: caso de error
 }
 

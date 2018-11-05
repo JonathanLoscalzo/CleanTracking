@@ -4,7 +4,7 @@ import moment from 'moment';
 
 export default (props) => {
     return (
-        <div className="card" >
+        props.order && <div className="card" >
             <div className="card-header"> Orden {props.order.id}</div>
             <div className="card-body">
                 {props.order && (
