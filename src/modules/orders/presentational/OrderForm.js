@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { FieldArray } from 'redux-form';
+import { Alert } from 'reactstrap'
 
 import FormToolbar from './FormToolbar';
 
@@ -64,7 +65,7 @@ const renderMembers = ({
     selected
 }) => (
         <div className="">
-            {/* <ErrorHeader touched={touched} error={error} submitFailed={submitFailed} /> */}
+            <ErrorHeader touched={touched} error={error} submitFailed={submitFailed} />
             {/* <AgregarProducto fields={fields} /> */}
             <ToolbarMembers
                 fields={fields}
@@ -79,20 +80,20 @@ const renderMembers = ({
         </div >
     )
 
-// const ErrorHeader = ({ touched, submitFailed, error }) => {
-//     return (
-//         <Fragment>
-//             {(touched || submitFailed) && error &&
-//                 <div className="form-row">
-//                     <div className="col-12">
-//                         <Alert color="danger">
-//                             <span>{error}</span>
-//                         </Alert>
-//                     </div>
-//                 </div>}
-//         </Fragment>
-//     )
-// }
+const ErrorHeader = ({ touched, submitFailed, error }) => {
+    return (
+        <Fragment>
+            {(touched || submitFailed) && error &&
+                <div className="form-row">
+                    <div className="col-12">
+                        <Alert color="danger">
+                            <span>{error}</span>
+                        </Alert>
+                    </div>
+                </div>}
+        </Fragment>
+    )
+}
 
 class InputsForm extends React.Component {
     render() {
