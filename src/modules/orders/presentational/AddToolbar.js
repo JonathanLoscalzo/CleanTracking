@@ -8,7 +8,7 @@ const ToolbarMembers = ({ fields, items, add, selected }) => {
     return (
         <div className="">
             <FormSection name="item_selectable" className="form-row">
-                <div className="col-7">
+                <div className="col-8">
                     <Field
                         name={`product`}
                         type="select"
