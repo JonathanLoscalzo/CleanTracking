@@ -27,7 +27,7 @@ const renderToolbar = ({ original, ...props }) => {
                 <FaSearch />
             </button>
         </Link> {' '}
-        {editButton} {' '}
+        {/* {editButton} {' '} */}
         <Link to={`/order/remove/${props.value}`}>
             <button>
                 <FaTrash />

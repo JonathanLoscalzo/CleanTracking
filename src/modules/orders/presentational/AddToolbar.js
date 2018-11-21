@@ -34,7 +34,7 @@ const ToolbarMembers = ({ fields, items, add, selected }) => {
                     onClick={(elem) => {
                         add(fields, selected);
                     }}>
-                    <FaPlusCircle /> Seleccionar
+                    <FaPlusCircle /> Agregar
                     </button>
             </div>
         </div>)
