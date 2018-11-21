@@ -1,4 +1,5 @@
 import { replace } from 'connected-react-router'
+import { change } from 'redux-form'
 import { NUEVO } from '../states';
 import { toast } from 'react-toastify';
 import orderapi from '../../common/api/orderApi';
@@ -9,7 +10,7 @@ export const RESPONSE_CREATE_ORDERS = "ORDERS/CREATE/RESPONSE_ORDERS"
 export const ERROR_CREATE_ORDERS = "ORDERS/CREATE/ERROR_ORDERS"
 
 let initialState = {
-    order: { products: [{ name: '' }] },
+    order: { items: [], item_selectable: { product: '', quantity: '' } },
     loading: false,
     error: null
 }
@@ -36,12 +37,12 @@ export const create = (order) => (dispatch) => {
     let placeOrder = { ...order, orderPlaced: new Date(), state: NUEVO }
 
     orderapi.PlaceOrder(placeOrder)
-        .then((response)=>{
+        .then((response) => {
             dispatch({ type: RESPONSE_CREATE_ORDERS, payload: response.data })
             dispatch(replace('/order'));
             toast.success("Pedido creado")
         })
-        .catch(()=>{
+        .catch(() => {
             toast.error("Error al crear pedido")
         })
 }
@@ -53,4 +54,18 @@ export const load = () => dispatch => {
 export const goBack = () => dispatch => {
     dispatch(replace('/order'));
     toast.info("Creación cancelada")
+}
+
+export const add = (fields, item) => (dispatch, state) => {
+    if (item) {
+        fields.push(item)
+        dispatch(change('order/create', 'item_selectable', initialState.order.item_selectable))
+    }
+}
+
+export const remove = (fields, index, item) => (dispatch, state) => {
+    fields.remove(index);
+    if (item) {
+        //dispatch({ type: ADD_AUTOCOMPLETE_TASK, payload: item })
+    }
 }

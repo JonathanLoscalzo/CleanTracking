@@ -2,29 +2,23 @@ import React from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { FaEdit, FaTrash, FaSearch } from 'react-icons/fa'
-import * as States from '../../states'
+import States from '../../states'
 
 const renderState = props => {
-    switch (props.value) {
-        case States.NUEVO:
-            return <span className="badge badge-warning" >{States.NUEVO}</span>
-        case States.ENTREGADO:
-            return <span className="badge badge-success" >{States.ENTREGADO}</span>
-        default:
-            return <span> SIN ESTADO </span>
-    }
+    if (!!props) return (<span className={`badge badge-${States[props.value].label}`}> {States[props.value].name}</ span>)
+    return "SIN ESTADO"
 }
 
 const renderToolbar = ({ original, ...props }) => {
     let editButton;
     // if (original.state === States.NUEVO) {
-        editButton = (
-            <Link to={`/order/edit/${props.value}`}>
-                <button >
-                    <FaEdit />
-                </button>
-            </Link>
-        )
+    editButton = (
+        <Link to={`/order/edit/${props.value}`}>
+            <button >
+                <FaEdit />
+            </button>
+        </Link>
+    )
     // }
 
     return <span>
@@ -58,7 +52,7 @@ const columns = [
     // },
     {
         Header: 'Estado',
-        accessor: 'state',
+        accessor: 'statusLabel',
         Cell: renderState
     }, {
         Header: 'Acciones',

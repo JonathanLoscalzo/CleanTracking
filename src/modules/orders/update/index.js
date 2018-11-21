@@ -1,5 +1,6 @@
 import { replace } from 'connected-react-router'
 import { toast } from 'react-toastify'
+import { change } from 'redux-form'
 
 import orderapi from '../../common/api/orderApi';
 
@@ -12,6 +13,7 @@ export const LOADED_ERROR_ORDER = "ORDERS/UPDATE/LOADED_ERROR_ORDER"
 
 let initialState = {
     order: null,
+    item_selectable: { product: '', quantity: '' },
     loading: true,
     error: null
 }
@@ -74,4 +76,18 @@ export const goBack = () => dispatch => {
     // TODO: mostrar mensaje de volver toast
     dispatch(replace('/order'));
     toast.info("Edición cancelada")
+}
+
+export const add = (fields, item) => (dispatch, state) => {
+    if (item) {
+        fields.push(item)
+        dispatch(change('order/update', 'item_selectable', initialState.item_selectable))
+    }
+}
+
+export const remove = (fields, index, item) => (dispatch, state) => {
+    fields.remove(index);
+    if (item) {
+        //dispatch({ type: ADD_AUTOCOMPLETE_TASK, payload: item })
+    }
 }

@@ -31,6 +31,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:production": "env-cmd .env.production npm run start",
     "build": "react-scripts build",
     "build:production": "env-cmd .env.production npm run build && cp build/index.html build/200.html",
     "test": "react-scripts test",

@@ -1,13 +1,11 @@
-import React, { Fragment } from 'react'
-import { FieldArray, Field } from 'redux-form';
-import { Alert } from 'reactstrap'
+import React from 'react'
+import { FieldArray } from 'redux-form';
 
-import { FaTrash, FaPlusCircle } from 'react-icons/fa'
 import FormToolbar from './FormToolbar';
 
-import renderField from '../../common/inputs/RenderField'
-import selectable from '../../common/inputs/Selectable'
 import { Body, Wrapper, Header } from '../../common/page'
+import InputRow from './Inputs'
+import ToolbarMembers from './AddToolbar'
 
 const products = [
     { value: '-1', label: '- Elija una opción - ' },
@@ -34,7 +32,11 @@ const products = [
     { value: 'Repuesto difusor (lavanda)', label: 'Repuesto difusor (lavanda)' },
 ]
 export default props => {
-    const { handleSubmit, title } = props
+    const { handleSubmit,
+        title,
+        add,
+        remove,
+        selected } = props
     return (
         <Wrapper>
             <Header title={title} />
@@ -42,7 +44,11 @@ export default props => {
                 <form onSubmit={handleSubmit}>
                     <FieldArray
                         name="items"
-                        component={renderMembers} />
+                        component={renderMembers}
+                        add={add}
+                        remove={remove}
+                        selected={selected} />
+
                     <FormToolbar {...props} />
                 </form>
             </Body>
@@ -50,81 +56,61 @@ export default props => {
     )
 }
 
-const ErrorHeader = ({ touched, submitFailed, error }) => {
-    return (
-        <Fragment>
-            {(touched || submitFailed) && error &&
-                <div className="form-row">
-                    <div className="col-12">
-                        <Alert color="danger">
-                            <span>{error}</span>
-                        </Alert>
-                    </div>
-                </div>}
-        </Fragment>
+const renderMembers = ({
+    fields,
+    meta: { touched, error, submitFailed },
+    add,
+    remove,
+    selected
+}) => (
+        <div className="">
+            {/* <ErrorHeader touched={touched} error={error} submitFailed={submitFailed} /> */}
+            {/* <AgregarProducto fields={fields} /> */}
+            <ToolbarMembers
+                fields={fields}
+                selected={selected}
+                items={products}
+                add={add} />
+            <br />
+            <InputsForm
+                fields={fields}
+                remove={remove}
+                products={products} />
+        </div >
     )
-}
 
-const AgregarProducto = ({ fields }) => {
-    return (
-        <div className="form-row mb-3 mt-1">
-            <div className="col-12">
-                <button type="button"
-                    className="btn btn-lg btn-info"
-                    onClick={() => {
-                        fields.push({})
-                    }}>
-                    <FaPlusCircle /> Agregar Producto
-                </button>
-            </div>
-        </div>)
-}
+// const ErrorHeader = ({ touched, submitFailed, error }) => {
+//     return (
+//         <Fragment>
+//             {(touched || submitFailed) && error &&
+//                 <div className="form-row">
+//                     <div className="col-12">
+//                         <Alert color="danger">
+//                             <span>{error}</span>
+//                         </Alert>
+//                     </div>
+//                 </div>}
+//         </Fragment>
+//     )
+// }
 
 class InputsForm extends React.Component {
     render() {
-        const { fields } = this.props;
+        const { fields, products, remove } = this.props;
 
         return (
-            <Fragment>
+            <ul className="list-group">
                 {
-                    fields.map((member, index) => <InputRow key={index} member={member} index={index} fields={fields} />)
+                    fields.map((member, index) =>
+                        <InputRow
+                            key={index}
+                            member={member}
+                            index={index}
+                            fields={fields}
+                            products={products}
+                            remove={remove} />)
                 }
-            </Fragment>)
+            </ul>
+        )
     }
 }
-
-const InputRow = ({ member, index, fields }) => (
-    <div className="form-row" key={index}>
-        <div className="col-8">
-            <Field
-                name={`${member}.product`}
-                type="select"
-                component={selectable}
-                label={`Producto ${index + 1}`} options={products} />
-        </div>
-        <div className="col-3">
-            <Field
-                name={`${member}.quantity`}
-                type="text"
-                component={renderField}
-                label={`Cantidad`} />
-        </div>
-        <div className="col-1 d-flex align-items-center">
-            <button
-                type="button"
-                className="btn btn-outline-danger"
-                title="Remove Member"
-                onClick={() => fields.remove(index)}>
-                <FaTrash />
-            </button>
-        </div>
-    </div>
-)
-
-const renderMembers = ({ fields, meta: { touched, error, submitFailed } }) => (
-    <div className="">
-        <ErrorHeader touched={touched} error={error} submitFailed={submitFailed} />
-        <AgregarProducto fields={fields} />
-        <InputsForm fields={fields} />
-    </div >
-)
