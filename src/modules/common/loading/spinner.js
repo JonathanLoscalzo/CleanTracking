@@ -3,11 +3,11 @@ import './styles.css';
 
 const Spinner = ({ loading, ...props }) => {
     if (loading) {
-        return (<div className="spinner" >
-            <div className="bounce1"></div>
-            <div className="bounce2"></div>
-            <div className="bounce3"></div>
-        </div>)
+        return (
+        <div class="spinner">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+          </div>)
     }
     else {
         return (props.children)

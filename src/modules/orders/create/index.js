@@ -57,7 +57,7 @@ export const goBack = () => dispatch => {
 }
 
 export const add = (fields, item) => (dispatch, state) => {
-    if (item) {
+    if (item && item.product !== '' && item.quantity !== '') {
         fields.push(item)
         dispatch(change('order/create', 'item_selectable', initialState.order.item_selectable))
     }

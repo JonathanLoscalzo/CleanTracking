@@ -14,12 +14,12 @@ const InputRow = ({ member, index, fields, remove, products }) => {
                     <div className="col">
                         Producto: <strong>{item.product}</strong> - Cantidad: <strong>{item.quantity}</strong>
                     </div>
-                    <div className="col-1 d-flex align-items-center">
+                    <div className="d-flex align-items-center">
                         <button
                             type="button"
                             className="btn float-right btn-outline-danger"
                             title="Remove Member"
-                            onClick={() => { debugger; remove(fields, index, item) }}>
+                            onClick={() => { remove(fields, index, item) }}>
                             <FaTrash />
                         </button>
                     </div>
@@ -28,7 +28,7 @@ const InputRow = ({ member, index, fields, remove, products }) => {
         )
     } else {
         return (
-            <li class="list-group-item">
+            <li className="list-group-item">
                 <div className="form-row" key={index}>
                     <div className="col-8">
                         <Field
