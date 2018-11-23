@@ -5,6 +5,7 @@ const url = config.BACKEND_URL;
 
 const api = axios.create({
     baseURL: url,
+    headers: { "Access-Control-Allow-Origin": "*" }
 })
 
 api.interceptors.request.use(config => {
